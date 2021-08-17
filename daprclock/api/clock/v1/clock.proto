@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package daprclock.clock.v1;
+option go_package = "github.com/kzmake/examples/daprclock/api/clock/v1;clock";
+
+import "google/api/annotations.proto";
+
+service Clock {
+  rpc Now(NowRequest) returns (NowResponse) {
+    option (google.api.http) = {
+      get: "/clock/now"
+    };
+  }
+}
+
+message NowRequest {}
+
+message NowResponse {
+  string hour = 1;
+  string minute = 2;
+  string second = 3;
+}

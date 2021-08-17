@@ -1,0 +1,58 @@
+---
+apiVersion: skaffold/v2beta19
+kind: Config
+metadata:
+requires:
+  - configs: ["pubsub", "statestore"]
+---
+apiVersion: skaffold/v2beta19
+kind: Config
+metadata:
+  name: pubsub
+deploy:
+  helm:
+    releases:
+      - name: redis-pubsub-x
+        repo: https://charts.bitnami.com/bitnami
+        remoteChart: redis
+        setValues:
+          master.persistence.enabled: false
+          replica.persistence.enabled: false
+          auth.password: myredis
+          architecture: standalone
+          sentinel.enabled: false
+---
+apiVersion: skaffold/v2beta19
+kind: Config
+metadata:
+  name: statestore
+deploy:
+  helm:
+    releases:
+      - name: redis-statestore-hourhand
+        repo: https://charts.bitnami.com/bitnami
+        remoteChart: redis
+        setValues:
+          master.persistence.enabled: false
+          replica.persistence.enabled: false
+          auth.password: myredis
+          architecture: standalone
+          sentinel.enabled: false
+      - name: redis-statestore-minutehand
+        repo: https://charts.bitnami.com/bitnami
+        remoteChart: redis
+        setValues:
+          master.persistence.enabled: false
+          replica.persistence.enabled: false
+          auth.password: myredis
+          architecture: standalone
+          sentinel.enabled: false
+      - name: redis-statestore-secondhand
+        repo: https://charts.bitnami.com/bitnami
+        remoteChart: redis
+        setValues:
+          master.persistence.enabled: false
+          replica.persistence.enabled: false
+          auth.password: myredis
+          architecture: standalone
+          sentinel.enabled: false

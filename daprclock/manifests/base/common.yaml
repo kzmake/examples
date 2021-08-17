@@ -1,0 +1,53 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: common-config
+---
+apiVersion: dapr.io/v1alpha1
+kind: Configuration
+metadata:
+  name: common-dapr-config
+spec:
+  features:
+    - name: proxy.grpc
+      enabled: true
+---
+apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: binding-1s
+spec:
+  type: bindings.cron
+  version: v1
+  metadata:
+    - name: schedule
+      value: "@every 1s"
+---
+apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: pubsub-x
+spec:
+  type: pubsub.redis
+  version: v1
+  metadata:
+    - name: redisHost
+      value: redis-pubsub-x-master.default.svc.cluster.local:6379
+    - name: redisPassword
+      value: "myredis"
+---
+apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: statestore-secondhand
+spec:
+  type: state.redis
+  version: v1
+  metadata:
+    - name: redisHost
+      value: redis-statestore-secondhand-master.default.svc.cluster.local:6379
+    - name: redisPassword
+      value: "myredis"
+    - name: keyPrefix
+      value: name

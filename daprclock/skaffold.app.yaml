@@ -1,0 +1,50 @@
+---
+apiVersion: skaffold/v2beta19
+kind: Config
+metadata:
+requires:
+  - configs: ["app"]
+---
+apiVersion: skaffold/v2beta19
+kind: Config
+metadata:
+  name: app
+build:
+  artifacts:
+    - image: kzmake/api-gateway
+      docker: { dockerfile: Dockerfile.golang, buildArgs: { SERVICE_NAME: api/gateway } }
+    - image: kzmake/svc-clock
+      docker: { dockerfile: Dockerfile.golang, buildArgs: { SERVICE_NAME: svc/clock } }
+    - image: kzmake/svc-hourhand
+      docker: { dockerfile: Dockerfile.golang, buildArgs: { SERVICE_NAME: svc/hourhand } }
+    - image: kzmake/svc-secondhand
+      docker: { dockerfile: Dockerfile.golang, buildArgs: { SERVICE_NAME: svc/secondhand } }
+    - image: kzmake/wrk-tick
+      docker: { dockerfile: Dockerfile.golang, buildArgs: { SERVICE_NAME: wrk/tick } }
+    - image: kzmake/wrk-secondhand
+      docker: { dockerfile: Dockerfile.golang, buildArgs: { SERVICE_NAME: wrk/secondhand } }
+deploy:
+  kustomize:
+    paths:
+      - manifests/overlays/localhost
+portForward:
+  - resourceType: service
+    resourceName: api-gateway
+    namespace: default
+    port: 8080
+    localPort: 58080
+  - resourceType: service
+    resourceName: svc-clock
+    namespace: default
+    port: 5050
+    localPort: 55050
+  - resourceType: service
+    resourceName: svc-hourhand
+    namespace: default
+    port: 5050
+    localPort: 55051
+  - resourceType: service
+    resourceName: svc-secondhand
+    namespace: default
+    port: 5050
+    localPort: 55053

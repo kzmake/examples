@@ -1,5 +1,0 @@
----
-resources:
-  - common.yaml
-  - gateway.yaml
-  - greeter.yaml

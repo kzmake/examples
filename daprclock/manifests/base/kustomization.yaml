@@ -1,0 +1,9 @@
+---
+resources:
+  - common.yaml
+  - api-gateway.yaml
+  - svc-clock.yaml
+  - svc-hourhand.yaml
+  - svc-secondhand.yaml
+  - wrk-tick.yaml
+  - wrk-secondhand.yaml

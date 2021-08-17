@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package basic.fuga.v1;
+option go_package = "github.com/kzmake/examples/basic-service-invocation/api/fuga/v1;fuga";
+
+import "google/api/annotations.proto";
+
+service Fuga {
+  rpc Piyo(PiyoRequest) returns (PiyoResponse) {
+    option (google.api.http) = {
+      get: "/fuga/piyo"
+    };
+  }
+}
+
+message PiyoRequest {}
+
+message PiyoResponse {
+  string msg = 1;
+}

@@ -1,0 +1,46 @@
+---
+apiVersion: skaffold/v2beta19
+kind: Config
+metadata:
+requires:
+  - configs: ["app"]
+---
+apiVersion: skaffold/v2beta19
+kind: Config
+metadata:
+  name: app
+build:
+  artifacts:
+    - image: kzmake/api-gateway
+      docker: { dockerfile: Dockerfile.golang, buildArgs: { SERVICE_NAME: api/gateway } }
+    - image: kzmake/svc-hoge
+      docker: { dockerfile: Dockerfile.golang, buildArgs: { SERVICE_NAME: svc/hoge } }
+    - image: kzmake/svc-fuga
+      docker: { dockerfile: Dockerfile.golang, buildArgs: { SERVICE_NAME: svc/fuga } }
+    - image: kzmake/svc-piyo
+      docker: { dockerfile: Dockerfile.golang, buildArgs: { SERVICE_NAME: svc/piyo } }
+deploy:
+  kustomize:
+    paths:
+      - manifests/overlays/localhost
+portForward:
+  - resourceType: service
+    resourceName: api-gateway
+    namespace: default
+    port: 8080
+    localPort: 58080
+  - resourceType: service
+    resourceName: svc-hoge
+    namespace: default
+    port: 5050
+    localPort: 55050
+  - resourceType: service
+    resourceName: svc-fuga
+    namespace: default
+    port: 5050
+    localPort: 55051
+  - resourceType: service
+    resourceName: svc-piyo
+    namespace: default
+    port: 5050
+    localPort: 55052

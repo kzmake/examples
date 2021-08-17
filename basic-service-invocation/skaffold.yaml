@@ -1,0 +1,7 @@
+---
+apiVersion: skaffold/v2beta19
+kind: Config
+metadata:
+requires:
+  - configs: ["app"]
+    path: skaffold.app.yaml

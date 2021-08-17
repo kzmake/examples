@@ -1,0 +1,7 @@
+---
+resources:
+  - common.yaml
+  - api-gateway.yaml
+  - svc-hoge.yaml
+  - svc-fuga.yaml
+  - svc-piyo.yaml

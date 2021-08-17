@@ -1,0 +1,11 @@
+###
+
+POST http://localhost:58080/hoge/fuga HTTP/2.0
+
+###
+
+POST http://localhost:58080/fuga/piyo HTTP/2.0
+
+###
+
+POST http://localhost:58080/piyo/ping HTTP/2.0

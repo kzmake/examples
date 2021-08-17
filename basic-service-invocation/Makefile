@@ -85,7 +85,7 @@ dev:
 http:
 	curl -i localhost:58080/hoge/fuga
 	curl -i localhost:58080/fuga/piyo
-	curl -i localhost:58080/piyo/piyo
+	curl -i localhost:58080/piyo/ping
 
 .PHONY: grpc
 grpc:

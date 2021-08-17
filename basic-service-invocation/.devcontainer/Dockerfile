@@ -48,7 +48,7 @@ RUN curl -sS https://raw.githubusercontent.com/dapr/cli/master/install/install.s
 
 # install tools
 COPY Makefile /tmp/Makefile
-RUN cd /tmp && make install
+RUN make -f /tmp/Makefile install
 RUN chmod -R a+w /go/pkg
 
 USER $USER_UID

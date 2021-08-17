@@ -47,33 +47,6 @@ func init() {
 }
 
 func newGatewayServer(ctx context.Context) (*http.Server, error) {
-	hogeMux := runtime.NewServeMux(
-		runtime.WithMetadata(func(_ context.Context, _ *http.Request) metadata.MD {
-			return metadata.Pairs("dapr-app-id", "svc-hoge")
-		}),
-	)
-	if err := hoge.RegisterHogeHandlerFromEndpoint(ctx, hogeMux, env.Dapr.Address, []grpc.DialOption{grpc.WithInsecure()}); err != nil {
-		return nil, xerrors.Errorf("Failed to register handler: %w", err)
-	}
-
-	fugaMux := runtime.NewServeMux(
-		runtime.WithMetadata(func(_ context.Context, _ *http.Request) metadata.MD {
-			return metadata.Pairs("dapr-app-id", "svc-fuga")
-		}),
-	)
-	if err := fuga.RegisterFugaHandlerFromEndpoint(ctx, fugaMux, env.Dapr.Address, []grpc.DialOption{grpc.WithInsecure()}); err != nil {
-		return nil, xerrors.Errorf("Failed to register handler: %w", err)
-	}
-
-	piyoMux := runtime.NewServeMux(
-		runtime.WithMetadata(func(_ context.Context, _ *http.Request) metadata.MD {
-			return metadata.Pairs("dapr-app-id", "svc-piyo")
-		}),
-	)
-	if err := piyo.RegisterPiyoHandlerFromEndpoint(ctx, piyoMux, env.Dapr.Address, []grpc.DialOption{grpc.WithInsecure()}); err != nil {
-		return nil, xerrors.Errorf("Failed to register handler: %w", err)
-	}
-
 	gin.SetMode(gin.ReleaseMode)
 	r := gin.New()
 
@@ -93,8 +66,34 @@ func newGatewayServer(ctx context.Context) (*http.Server, error) {
 	))
 	r.Use(gin.Recovery())
 
+	hogeMux := runtime.NewServeMux(
+		runtime.WithMetadata(func(_ context.Context, _ *http.Request) metadata.MD {
+			return metadata.Pairs("dapr-app-id", "svc-hoge")
+		}),
+	)
+	if err := hoge.RegisterHogeHandlerFromEndpoint(ctx, hogeMux, env.Dapr.Address, []grpc.DialOption{grpc.WithInsecure()}); err != nil {
+		return nil, xerrors.Errorf("Failed to register handler: %w", err)
+	}
 	r.Group("/hoge").Any("/*any", gin.WrapH(hogeMux))
+
+	fugaMux := runtime.NewServeMux(
+		runtime.WithMetadata(func(_ context.Context, _ *http.Request) metadata.MD {
+			return metadata.Pairs("dapr-app-id", "svc-fuga")
+		}),
+	)
+	if err := fuga.RegisterFugaHandlerFromEndpoint(ctx, fugaMux, env.Dapr.Address, []grpc.DialOption{grpc.WithInsecure()}); err != nil {
+		return nil, xerrors.Errorf("Failed to register handler: %w", err)
+	}
 	r.Group("/fuga").Any("/*any", gin.WrapH(fugaMux))
+
+	piyoMux := runtime.NewServeMux(
+		runtime.WithMetadata(func(_ context.Context, _ *http.Request) metadata.MD {
+			return metadata.Pairs("dapr-app-id", "svc-piyo")
+		}),
+	)
+	if err := piyo.RegisterPiyoHandlerFromEndpoint(ctx, piyoMux, env.Dapr.Address, []grpc.DialOption{grpc.WithInsecure()}); err != nil {
+		return nil, xerrors.Errorf("Failed to register handler: %w", err)
+	}
 	r.Group("/piyo").Any("/*any", gin.WrapH(piyoMux))
 
 	return &http.Server{Addr: env.Address, Handler: r}, nil

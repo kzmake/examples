@@ -1,5 +1,0 @@
-{
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "go.formatTool": "goimports",
-  "go.lintTool": "golangci-lint"
-}

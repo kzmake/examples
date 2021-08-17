@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package daprclock.secondhand.v1;
+option go_package = "github.com/kzmake/examples/dapr-clock/api/secondhand/v1;secondhand";
+
+import "google/api/annotations.proto";
+
+service SecondHand {
+  rpc Now(NowRequest) returns (NowResponse);
+}
+
+message NowRequest {}
+
+message NowResponse {
+  string second = 1;
+}

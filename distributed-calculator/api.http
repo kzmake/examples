@@ -1,0 +1,35 @@
+###
+POST http://localhost:58080/adder/add HTTP/2.0
+Content-Type: application/json
+
+{
+  "operand_one": "1.2",
+  "operand_two": "3.4"
+}
+
+###
+POST http://localhost:58080/subtractor/sub HTTP/2.0
+Content-Type: application/json
+
+{
+  "operand_one": "1.2",
+  "operand_two": "3.4"
+}
+
+###
+POST http://localhost:58080/multiplier/mul HTTP/2.0
+Content-Type: application/json
+
+{
+  "operand_one": "1.2",
+  "operand_two": "10"
+}
+
+###
+POST http://localhost:58080/divider/div HTTP/2.0
+Content-Type: application/json
+
+{
+  "operand_one": "2.2",
+  "operand_two": "1.1"
+}

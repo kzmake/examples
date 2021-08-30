@@ -1,0 +1,9 @@
+---
+resources:
+  - common.yaml
+  - api-gateway.yaml
+  - svc-greeter.yaml
+  - svc-adder.yaml
+  - svc-subtractor.yaml
+  - svc-multiplier.yaml
+  - svc-divider.yaml

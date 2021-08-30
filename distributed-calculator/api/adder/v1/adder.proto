@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package distributedcalculator.adder.v1;
+option go_package = "github.com/kzmake/examples/distributed-calculator/api/adder/v1;adder";
+
+import "google/api/annotations.proto";
+
+service Adder {
+  rpc Add(AddRequest) returns (AddResponse) {
+    option (google.api.http) = {
+      post: "/adder/add"
+      body: "*"
+    };
+  }
+}
+
+message AddRequest {
+  string operand_one = 1;
+  string operand_two = 2;
+}
+
+message AddResponse {
+  string result = 1;
+}

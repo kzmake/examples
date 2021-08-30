@@ -1,0 +1,55 @@
+---
+apiVersion: skaffold/v2beta19
+kind: Config
+metadata:
+requires:
+  - configs: ["app"]
+---
+apiVersion: skaffold/v2beta19
+kind: Config
+metadata:
+  name: app
+build:
+  artifacts:
+    - image: kzmake/api-gateway
+      docker: { dockerfile: Dockerfile.golang, buildArgs: { SERVICE_NAME: api/gateway } }
+    - image: kzmake/svc-greeter
+      docker: { dockerfile: Dockerfile.golang, buildArgs: { SERVICE_NAME: svc/greeter } }
+    - image: kzmake/svc-adder
+      docker: { dockerfile: Dockerfile.golang, buildArgs: { SERVICE_NAME: svc/adder } }
+    - image: kzmake/svc-subtractor
+      docker: { dockerfile: Dockerfile.golang, buildArgs: { SERVICE_NAME: svc/subtractor } }
+    - image: kzmake/svc-multiplier
+      docker: { dockerfile: Dockerfile.golang, buildArgs: { SERVICE_NAME: svc/multiplier } }
+    - image: kzmake/svc-divider
+      docker: { dockerfile: Dockerfile.golang, buildArgs: { SERVICE_NAME: svc/divider } }
+deploy:
+  kustomize:
+    paths:
+      - manifests/overlays/localhost
+portForward:
+  - resourceType: service
+    resourceName: api-gateway
+    namespace: default
+    port: 8080
+    localPort: 58080
+  - resourceType: service
+    resourceName: svc-adder
+    namespace: default
+    port: 5050
+    localPort: 55050
+  - resourceType: service
+    resourceName: svc-subtractor
+    namespace: default
+    port: 5050
+    localPort: 55051
+  - resourceType: service
+    resourceName: svc-multiplier
+    namespace: default
+    port: 5050
+    localPort: 55052
+  - resourceType: service
+    resourceName: svc-divider
+    namespace: default
+    port: 5050
+    localPort: 55053

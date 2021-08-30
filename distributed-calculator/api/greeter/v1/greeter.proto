@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package distributedcalculator.greeter.v1;
+option go_package = "github.com/kzmake/examples/distributed-calculator/api/greeter/v1;greeter";
+
+import "google/api/annotations.proto";
+
+service Greeter {
+  rpc Hello(HelloRequest) returns (HelloResponse) {
+    option (google.api.http) = {
+      post: "/greeter/hello"
+      body: "*"
+    };
+  }
+}
+
+message HelloRequest {
+  string name = 1;
+}
+
+message HelloResponse {
+  string msg = 1;
+}

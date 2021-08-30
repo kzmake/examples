@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package distributedcalculator.multiplier.v1;
+option go_package = "github.com/kzmake/examples/distributed-calculator/api/multiplier/v1;multiplier";
+
+import "google/api/annotations.proto";
+
+service Multiplier {
+  rpc Mul(MulRequest) returns (MulResponse) {
+    option (google.api.http) = {
+      post: "/multiplier/mul"
+      body: "*"
+    };
+  }
+}
+
+message MulRequest {
+  string operand_one = 1;
+  string operand_two = 2;
+}
+
+message MulResponse {
+  string result = 1;
+}

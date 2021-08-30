@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package distributedcalculator.divider.v1;
+option go_package = "github.com/kzmake/examples/distributed-calculator/api/divider/v1;divider";
+
+import "google/api/annotations.proto";
+
+service Divider {
+  rpc Div(DivRequest) returns (DivResponse) {
+    option (google.api.http) = {
+      post: "/divider/div"
+      body: "*"
+    };
+  }
+}
+
+message DivRequest {
+  string operand_one = 1;
+  string operand_two = 2;
+}
+
+message DivResponse {
+  string result = 1;
+}

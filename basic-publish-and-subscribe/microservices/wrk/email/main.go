@@ -15,7 +15,7 @@ import (
 	"golang.org/x/sync/errgroup"
 	"golang.org/x/xerrors"
 
-	"github.com/kzmake/examples/basic-publish-and-subscribe/microservices/wrk/sns/handler"
+	"github.com/kzmake/examples/basic-publish-and-subscribe/microservices/wrk/email/handler"
 )
 
 type Env struct {
@@ -45,7 +45,7 @@ func newBindingServer() (common.Service, error) {
 		return nil, err
 	}
 
-	h := handler.NewSNS()
+	h := handler.NewEmail()
 	if err := s.AddTopicEventHandler(&common.Subscription{PubsubName: "pubsub", Topic: "user.v1.CreatedEvent"}, h.Create); err != nil {
 		return nil, err
 	}

@@ -1,4 +1,5 @@
-POST http://localhost:58080/user/users HTTP/2.0
+###
+POST http://localhost:58080/user/v1/users HTTP/2.0
 Content-Type: application/json
 
 {

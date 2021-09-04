@@ -19,8 +19,8 @@ build:
       docker: { dockerfile: Dockerfile.golang, network: host, buildArgs: { SERVICE_NAME: wrk/wallet } }
     - image: ghcr.io/kzmake/examples/basic-publish-and-subscribe/wrk-blog
       docker: { dockerfile: Dockerfile.golang, network: host, buildArgs: { SERVICE_NAME: wrk/blog } }
-    - image: ghcr.io/kzmake/examples/basic-publish-and-subscribe/wrk-sns
-      docker: { dockerfile: Dockerfile.golang, network: host, buildArgs: { SERVICE_NAME: wrk/sns } }
+    - image: ghcr.io/kzmake/examples/basic-publish-and-subscribe/wrk-email
+      docker: { dockerfile: Dockerfile.golang, network: host, buildArgs: { SERVICE_NAME: wrk/email } }
 deploy:
   kustomize:
     paths:

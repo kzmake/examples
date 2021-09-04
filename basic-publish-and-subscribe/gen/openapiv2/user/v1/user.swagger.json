@@ -6,7 +6,7 @@
   },
   "tags": [
     {
-      "name": "UserManager"
+      "name": "UserService"
     }
   ],
   "consumes": [
@@ -16,9 +16,9 @@
     "application/json"
   ],
   "paths": {
-    "/user/users": {
+    "/user/v1/users": {
       "post": {
-        "operationId": "UserManager_Create",
+        "operationId": "UserService_Create",
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -44,7 +44,7 @@
           }
         ],
         "tags": [
-          "UserManager"
+          "UserService"
         ]
       }
     }

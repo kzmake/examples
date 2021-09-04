@@ -2,18 +2,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: wrk-sns
+  name: wrk-email
 spec:
   selector:
     matchLabels:
-      app: wrk-sns
+      app: wrk-email
   template:
     metadata:
       labels:
-        app: wrk-sns
+        app: wrk-email
       annotations:
         dapr.io/enabled: "true"
-        dapr.io/app-id: "wrk-sns"
+        dapr.io/app-id: "wrk-email"
         dapr.io/app-protocol: "grpc"
         dapr.io/app-port: "5050"
         dapr.io/log-as-json: "true"
@@ -21,16 +21,16 @@ spec:
         dapr.io/config: "common-dapr-config"
     spec:
       containers:
-        - name: wrk-sns
-          image: ghcr.io/kzmake/examples/basic-publish-and-subscribe/wrk-sns:latest
+        - name: wrk-email
+          image: ghcr.io/kzmake/examples/basic-publish-and-subscribe/wrk-email:latest
           command:
             - /app
           envFrom:
             - configMapRef:
                 name: common-config
             - configMapRef:
-                name: wrk-sns-config
-              prefix: SNS_
+                name: wrk-email-config
+              prefix: EMAIL_
           resources:
             limits:
               cpu: 500m
@@ -53,11 +53,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: wrk-sns
+  name: wrk-email
 spec:
   type: ClusterIP
   selector:
-    app: wrk-sns
+    app: wrk-email
   ports:
     - name: grpc
       port: 5050
@@ -66,6 +66,6 @@ spec:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: wrk-sns-config
+  name: wrk-email-config
 data:
   ADDRESS: 0.0.0.0:5050

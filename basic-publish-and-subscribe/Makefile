@@ -4,6 +4,8 @@ SERVICES = \
 	microservices/api/gateway \
 	microservices/svc/user \
 	microservices/wrk/wallet \
+	microservices/wrk/email \
+	microservices/wrk/blog \
 
 .PHONY: all
 all: proto pre fmt lint
@@ -61,8 +63,8 @@ destroy-production:
 
 .PHONY: http
 http:
-	curl -i localhost:58080/user/users -H "Content-Type: application/json" -d '{"name": "alice"}'
+	curl -i localhost:58080/user/v1/users -H "Content-Type: application/json" -d '{"name": "alice"}'
 
 .PHONY: grpc
 grpc:
-	grpcurl -protoset <(buf build -o -) -plaintext -d '{"name": "alice"}' localhost:55050 basic.user.v1.UserManager/Create || true
+	grpcurl -protoset <(buf build -o -) -plaintext -d '{"name": "alice"}' localhost:55050 basic.user.v1.UserService/Create || true

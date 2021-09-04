@@ -13,12 +13,12 @@ import (
 )
 
 type user struct {
-	pb.UnimplementedUserManagerServer
+	pb.UnimplementedUserServiceServer
 }
 
-var _ pb.UserManagerServer = new(user)
+var _ pb.UserServiceServer = new(user)
 
-func NewUser() pb.UserManagerServer { return &user{} }
+func NewUser() pb.UserServiceServer { return &user{} }
 
 func (h *user) Create(ctx context.Context, req *pb.CreateRequest) (*pb.CreateResponse, error) {
 	created_at := time.Now()

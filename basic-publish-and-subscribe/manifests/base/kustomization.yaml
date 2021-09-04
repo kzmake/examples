@@ -5,5 +5,5 @@ resources:
   - svc-user.yaml
   - wrk-wallet.yaml
   - wrk-blog.yaml
-  - wrk-sns.yaml
+  - wrk-email.yaml
 

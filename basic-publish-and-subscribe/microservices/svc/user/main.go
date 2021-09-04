@@ -48,7 +48,7 @@ func newGRPCServer() *grpc.Server {
 			grpc_recovery.UnaryServerInterceptor(),
 		)),
 	)
-	pb.RegisterUserManagerServer(s, handler.NewUser())
+	pb.RegisterUserServiceServer(s, handler.NewUser())
 
 	return s
 }

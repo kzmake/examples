@@ -5,10 +5,10 @@ option go_package = "github.com/kzmake/examples/basic-publish-and-subscribe/api/
 
 import "google/api/annotations.proto";
 
-service UserManager {
+service UserService {
   rpc Create(CreateRequest) returns (CreateResponse) {
     option (google.api.http) = {
-      post: "/user/users"
+      post: "/user/v1/users"
       body: "*"
     };
   }

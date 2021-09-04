@@ -69,10 +69,10 @@ func newGatewayServer(ctx context.Context) (*http.Server, error) {
 			return metadata.Pairs("dapr-app-id", "svc-user")
 		}),
 	)
-	if err := pb.RegisterUserManagerHandlerFromEndpoint(ctx, userMux, env.Dapr.Address, []grpc.DialOption{grpc.WithInsecure()}); err != nil {
+	if err := pb.RegisterUserServiceHandlerFromEndpoint(ctx, userMux, env.Dapr.Address, []grpc.DialOption{grpc.WithInsecure()}); err != nil {
 		return nil, xerrors.Errorf("Failed to register handler: %w", err)
 	}
-	r.Group("/user").Any("/*any", gin.WrapH(userMux))
+	r.Group("/user/v1").Any("/*any", gin.WrapH(userMux))
 
 	return &http.Server{Addr: env.Address, Handler: r}, nil
 }

@@ -7,7 +7,7 @@ pre:
 
 .PHONY: fmt
 fmt:
-	goimports -l -local "github.com/kzmake/examples/basic-publish-and-subscribe/microservices/wrk/sns" -w .
+	goimports -l -local "github.com/kzmake/examples/basic-publish-and-subscribe/microservices/wrk/email" -w .
 
 .PHONY: lint
 lint:

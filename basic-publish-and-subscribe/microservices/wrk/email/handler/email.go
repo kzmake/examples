@@ -9,12 +9,12 @@ import (
 	"google.golang.org/protobuf/proto"
 )
 
-type sns struct{}
+type email struct{}
 
-func NewSNS() *sns { return &sns{} }
+func NewEmail() *email { return &email{} }
 
-func (h *sns) Create(ctx context.Context, in *common.TopicEvent) (bool, error) {
-	log.Debug().Msgf("handle SNS.Create")
+func (h *email) Create(ctx context.Context, in *common.TopicEvent) (bool, error) {
+	log.Debug().Msgf("handle Email.Create")
 
 	e := &pb.CreatedEvent{}
 	if err := proto.Unmarshal(in.Data.([]byte), e); err != nil {

@@ -1,0 +1,24 @@
+---
+apiVersion: skaffold/v2beta19
+kind: Config
+metadata:
+requires:
+  - configs: ["pubsub"]
+---
+apiVersion: skaffold/v2beta19
+kind: Config
+metadata:
+  name: pubsub
+deploy:
+  helm:
+    releases:
+      - name: redis-pubsub
+        repo: https://charts.bitnami.com/bitnami
+        remoteChart: redis
+        setValues:
+          master.persistence.enabled: false
+          replica.persistence.enabled: false
+          auth.password: myredis
+          architecture: standalone
+          sentinel.enabled: false
+        wait: true

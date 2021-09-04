@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package basic.user.v1;
+option go_package = "github.com/kzmake/examples/basic-publish-and-subscribe/api/user/v1;user";
+
+import "google/api/annotations.proto";
+
+service UserManager {
+  rpc Create(CreateRequest) returns (CreateResponse) {
+    option (google.api.http) = {
+      post: "/user/users"
+      body: "*"
+    };
+  }
+}
+
+message CreateRequest {
+  string name = 1;
+}
+
+message CreateResponse {
+  User user = 1;
+}
+
+message User {
+  string id = 1;
+  string name = 2;
+}

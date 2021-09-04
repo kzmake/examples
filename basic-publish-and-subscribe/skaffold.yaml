@@ -1,0 +1,12 @@
+---
+apiVersion: skaffold/v2beta19
+kind: Config
+metadata:
+  name: all
+requires:
+  - configs: ["pubsub"]
+    path: skaffold.components.yaml
+  - configs: ["dapr"]
+    path: skaffold.dapr.yaml
+  - configs: ["app"]
+    path: skaffold.app.yaml

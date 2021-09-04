@@ -1,0 +1,24 @@
+###
+POST http://localhost:58080/user/v1/users HTTP/2.0
+Content-Type: application/json
+
+{
+  "name": "alice"
+}
+
+###
+GET http://localhost:58080/user/v1/users HTTP/2.0
+
+###
+GET http://localhost:58080/user/v1/users/01FEREE1YQHNZJ3G0DCP8E932E HTTP/2.0
+
+###
+PATCH http://localhost:58080/user/v1/users/01FEREE1YQHNZJ3G0DCP8E932E HTTP/2.0
+Content-Type: application/json
+
+{
+  "name": "updated_alice"
+}
+
+###
+DELETE http://localhost:58080/user/v1/users/01FEREE1YQHNZJ3G0DCP8E932E HTTP/2.0

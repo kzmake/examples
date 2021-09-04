@@ -1,0 +1,27 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: common-config
+---
+apiVersion: dapr.io/v1alpha1
+kind: Configuration
+metadata:
+  name: common-dapr-config
+spec:
+  features:
+    - name: proxy.grpc
+      enabled: true
+---
+apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: state-user
+spec:
+  type: state.redis
+  version: v1
+  metadata:
+    - name: redisHost
+      value: redis-state-master.default.svc.cluster.local:6379
+    - name: redisPassword
+      value: "myredis"

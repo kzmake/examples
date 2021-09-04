@@ -1,0 +1,5 @@
+---
+resources:
+  - common.yaml
+  - api-gateway.yaml
+  - svc-user.yaml

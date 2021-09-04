@@ -1,7 +1,7 @@
 # See here for image contents: https://github.com/microsoft/vscode-dev-containers/tree/v0.191.0/containers/go/.devcontainer/base.Dockerfile
 
 # [Choice] Go version: 1, 1.16, 1.15
-ARG VARIANT="1.16"
+ARG VARIANT="1.17"
 FROM mcr.microsoft.com/vscode/devcontainers/go:${VARIANT} as base
 
 # [Choice] Node.js version: none, lts, 16, 14, 12, 10
@@ -47,7 +47,7 @@ ARG DAPR_VERSION=1.3.0
 RUN curl -sS https://raw.githubusercontent.com/dapr/cli/master/install/install.sh | /bin/bash -s ${DAPR_VERSION}
 
 # install tools
-COPY Makefile /tmp/Makefile
+COPY .devcontainer/Makefile /tmp/Makefile
 RUN make -f /tmp/Makefile install
 RUN chmod -R a+w /go/pkg
 

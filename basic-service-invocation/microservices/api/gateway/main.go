@@ -20,9 +20,7 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/metadata"
 
-	fuga "github.com/kzmake/examples/basic-service-invocation/gen/go/fuga/v1"
-	hoge "github.com/kzmake/examples/basic-service-invocation/gen/go/hoge/v1"
-	piyo "github.com/kzmake/examples/basic-service-invocation/gen/go/piyo/v1"
+	userpb "github.com/kzmake/examples/basic-service-invocation/gen/go/user/v1"
 )
 
 type Env struct {
@@ -66,35 +64,15 @@ func newGatewayServer(ctx context.Context) (*http.Server, error) {
 	))
 	r.Use(gin.Recovery())
 
-	hogeMux := runtime.NewServeMux(
+	userMux := runtime.NewServeMux(
 		runtime.WithMetadata(func(_ context.Context, _ *http.Request) metadata.MD {
-			return metadata.Pairs("dapr-app-id", "svc-hoge")
+			return metadata.Pairs("dapr-app-id", "svc-user")
 		}),
 	)
-	if err := hoge.RegisterHogeHandlerFromEndpoint(ctx, hogeMux, env.Dapr.Address, []grpc.DialOption{grpc.WithInsecure()}); err != nil {
+	if err := userpb.RegisterUserServiceHandlerFromEndpoint(ctx, userMux, env.Dapr.Address, []grpc.DialOption{grpc.WithInsecure()}); err != nil {
 		return nil, xerrors.Errorf("Failed to register handler: %w", err)
 	}
-	r.Group("/hoge").Any("/*any", gin.WrapH(hogeMux))
-
-	fugaMux := runtime.NewServeMux(
-		runtime.WithMetadata(func(_ context.Context, _ *http.Request) metadata.MD {
-			return metadata.Pairs("dapr-app-id", "svc-fuga")
-		}),
-	)
-	if err := fuga.RegisterFugaHandlerFromEndpoint(ctx, fugaMux, env.Dapr.Address, []grpc.DialOption{grpc.WithInsecure()}); err != nil {
-		return nil, xerrors.Errorf("Failed to register handler: %w", err)
-	}
-	r.Group("/fuga").Any("/*any", gin.WrapH(fugaMux))
-
-	piyoMux := runtime.NewServeMux(
-		runtime.WithMetadata(func(_ context.Context, _ *http.Request) metadata.MD {
-			return metadata.Pairs("dapr-app-id", "svc-piyo")
-		}),
-	)
-	if err := piyo.RegisterPiyoHandlerFromEndpoint(ctx, piyoMux, env.Dapr.Address, []grpc.DialOption{grpc.WithInsecure()}); err != nil {
-		return nil, xerrors.Errorf("Failed to register handler: %w", err)
-	}
-	r.Group("/piyo").Any("/*any", gin.WrapH(piyoMux))
+	r.Group("/user/v1").Any("/*any", gin.WrapH(userMux))
 
 	return &http.Server{Addr: env.Address, Handler: r}, nil
 }

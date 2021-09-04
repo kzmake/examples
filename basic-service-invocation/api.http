@@ -1,11 +1,7 @@
 ###
+POST http://localhost:58080/user/v1/users HTTP/2.0
+Content-Type: application/json
 
-POST http://localhost:58080/hoge/fuga HTTP/2.0
-
-###
-
-POST http://localhost:58080/fuga/piyo HTTP/2.0
-
-###
-
-POST http://localhost:58080/piyo/ping HTTP/2.0
+{
+  "name": "alice"
+}

@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package basic.wallet.v1;
+option go_package = "github.com/kzmake/examples/basic-service-invocation/api/wallet/v1;wallet";
+
+import "google/api/annotations.proto";
+
+service WalletService {
+  rpc Create(CreateRequest) returns (CreateResponse);
+}
+
+message CreateRequest {}
+
+message CreateResponse {
+  Wallet wallet = 1;
+}
+
+message Wallet {
+  message Money {
+    int64 value = 1;
+  }
+
+  string id = 1;
+  Money balance = 2;
+}

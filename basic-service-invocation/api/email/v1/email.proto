@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package basic.email.v1;
+option go_package = "github.com/kzmake/examples/basic-service-invocation/api/email/v1;email";
+
+import "google/api/annotations.proto";
+
+service EmailService {
+  rpc Create(CreateRequest) returns (CreateResponse);
+}
+
+message CreateRequest {
+  string username = 1;
+}
+
+message CreateResponse {
+  Email email = 1;
+}
+
+message Email {
+  string address = 1;
+}

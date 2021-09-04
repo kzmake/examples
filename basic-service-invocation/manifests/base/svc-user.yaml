@@ -1,0 +1,71 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: svc-user
+spec:
+  selector:
+    matchLabels:
+      app: svc-user
+  template:
+    metadata:
+      labels:
+        app: svc-user
+      annotations:
+        dapr.io/enabled: "true"
+        dapr.io/app-id: "svc-user"
+        dapr.io/app-protocol: "grpc"
+        dapr.io/app-port: "5050"
+        dapr.io/log-as-json: "true"
+        dapr.io/log-level: "error"
+        dapr.io/config: "common-dapr-config"
+    spec:
+      containers:
+        - name: svc-user
+          image: ghcr.io/kzmake/examples/basic-service-invocation/svc-user:latest
+          command:
+            - /app
+          envFrom:
+            - configMapRef:
+                name: common-config
+            - configMapRef:
+                name: svc-user-config
+              prefix: USER_
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
+            requests:
+              cpu: 100m
+              memory: 32Mi
+          ports:
+            - name: grpc
+              containerPort: 5050
+          livenessProbe:
+            tcpSocket: { port: 5050 }
+            initialDelaySeconds: 10
+          readinessProbe:
+            tcpSocket: { port: 5050 }
+            initialDelaySeconds: 5
+            failureThreshold: 1
+            periodSeconds: 1
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-user
+spec:
+  type: ClusterIP
+  selector:
+    app: svc-user
+  ports:
+    - name: grpc
+      port: 5050
+      targetPort: 5050
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: svc-user-config
+data:
+  ADDRESS: 0.0.0.0:5050

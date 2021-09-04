@@ -2,6 +2,8 @@
 resources:
   - common.yaml
   - api-gateway.yaml
-  - svc-hoge.yaml
-  - svc-fuga.yaml
-  - svc-piyo.yaml
+  - svc-user.yaml
+  - svc-wallet.yaml
+  - svc-blog.yaml
+  - svc-email.yaml
+

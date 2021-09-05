@@ -31,7 +31,7 @@ func NewEchoClient(cc grpc.ClientConnInterface) EchoClient {
 
 func (c *echoClient) Echo(ctx context.Context, in *EchoRequest, opts ...grpc.CallOption) (*EchoResponse, error) {
 	out := new(EchoResponse)
-	err := c.cc.Invoke(ctx, "/basic-service-invocation-py.echo.v1.Echo/Echo", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/basic.echo.v1.Echo/Echo", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -76,7 +76,7 @@ func _Echo_Echo_Handler(srv interface{}, ctx context.Context, dec func(interface
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/basic-service-invocation-py.echo.v1.Echo/Echo",
+		FullMethod: "/basic.echo.v1.Echo/Echo",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(EchoServer).Echo(ctx, req.(*EchoRequest))
@@ -88,7 +88,7 @@ func _Echo_Echo_Handler(srv interface{}, ctx context.Context, dec func(interface
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Echo_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "basic-service-invocation-py.echo.v1.Echo",
+	ServiceName: "basic.echo.v1.Echo",
 	HandlerType: (*EchoServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

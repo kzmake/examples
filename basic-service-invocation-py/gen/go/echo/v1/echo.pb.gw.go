@@ -77,7 +77,7 @@ func RegisterEchoHandlerServer(ctx context.Context, mux *runtime.ServeMux, serve
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/basic-service-invocation-py.echo.v1.Echo/Echo", runtime.WithHTTPPathPattern("/echo/v1/echo"))
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/basic.echo.v1.Echo/Echo", runtime.WithHTTPPathPattern("/echo/v1/echo"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -139,7 +139,7 @@ func RegisterEchoHandlerClient(ctx context.Context, mux *runtime.ServeMux, clien
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/basic-service-invocation-py.echo.v1.Echo/Echo", runtime.WithHTTPPathPattern("/echo/v1/echo"))
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/basic.echo.v1.Echo/Echo", runtime.WithHTTPPathPattern("/echo/v1/echo"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return

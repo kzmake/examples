@@ -21,7 +21,7 @@ class EchoBase(abc.ABC):
 
     def __mapping__(self) -> typing.Dict[str, grpclib.const.Handler]:
         return {
-            '/basic-service-invocation-py.echo.v1.Echo/Echo': grpclib.const.Handler(
+            '/basic.echo.v1.Echo/Echo': grpclib.const.Handler(
                 self.Echo,
                 grpclib.const.Cardinality.UNARY_UNARY,
                 echo.v1.echo_pb2.EchoRequest,
@@ -35,7 +35,7 @@ class EchoStub:
     def __init__(self, channel: grpclib.client.Channel) -> None:
         self.Echo = grpclib.client.UnaryUnaryMethod(
             channel,
-            '/basic-service-invocation-py.echo.v1.Echo/Echo',
+            '/basic.echo.v1.Echo/Echo',
             echo.v1.echo_pb2.EchoRequest,
             echo.v1.echo_pb2.EchoResponse,
         )

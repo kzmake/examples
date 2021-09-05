@@ -16,11 +16,11 @@ from google.api import annotations_pb2 as google_dot_api_dot_annotations__pb2
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='greeter/v1/greeter.proto',
-  package='basic-service-invocation-py.greeter.v1',
+  package='basic.greeter.v1',
   syntax='proto3',
-  serialized_options=b'Z1github.com/kzmake/examples/basic-service-invocation-py/api/greeter/v1;greeter',
+  serialized_options=b'ZMgithub.com/kzmake/examples/basic-service-invocation-py/api/greeter/v1;greeter',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x18greeter/v1/greeter.proto\x12\x13basic-service-invocation-py.greeter.v1\x1a\x1cgoogle/api/annotations.proto\"\"\n\x0cHelloRequest\x12\x12\n\x04name\x18\x01 \x01(\tR\x04name\"!\n\rHelloResponse\x12\x10\n\x03msg\x18\x01 \x01(\tR\x03msg2w\n\x07Greeter\x12l\n\x05Hello\x12!.basic-service-invocation-py.greeter.v1.HelloRequest\x1a\".basic-service-invocation-py.greeter.v1.HelloResponse\"\x1c\x82\xd3\xe4\x93\x02\x16\"\x11/greeter/v1/hello:\x01*B3Z1github.com/kzmake/examples/basic-service-invocation-py/api/greeter/v1;greeterb\x06proto3'
+  serialized_pb=b'\n\x18greeter/v1/greeter.proto\x12\x10\x62\x61sic.greeter.v1\x1a\x1cgoogle/api/annotations.proto\"\"\n\x0cHelloRequest\x12\x12\n\x04name\x18\x01 \x01(\tR\x04name\"!\n\rHelloResponse\x12\x10\n\x03msg\x18\x01 \x01(\tR\x03msg2q\n\x07Greeter\x12\x66\n\x05Hello\x12\x1e.basic.greeter.v1.HelloRequest\x1a\x1f.basic.greeter.v1.HelloResponse\"\x1c\x82\xd3\xe4\x93\x02\x16\"\x11/greeter/v1/hello:\x01*BOZMgithub.com/kzmake/examples/basic-service-invocation-py/api/greeter/v1;greeterb\x06proto3'
   ,
   dependencies=[google_dot_api_dot_annotations__pb2.DESCRIPTOR,])
 
@@ -29,14 +29,14 @@ DESCRIPTOR = _descriptor.FileDescriptor(
 
 _HELLOREQUEST = _descriptor.Descriptor(
   name='HelloRequest',
-  full_name='basic-service-invocation-py.greeter.v1.HelloRequest',
+  full_name='basic.greeter.v1.HelloRequest',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='name', full_name='basic-service-invocation-py.greeter.v1.HelloRequest.name', index=0,
+      name='name', full_name='basic.greeter.v1.HelloRequest.name', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -54,21 +54,21 @@ _HELLOREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=79,
-  serialized_end=113,
+  serialized_start=76,
+  serialized_end=110,
 )
 
 
 _HELLORESPONSE = _descriptor.Descriptor(
   name='HelloResponse',
-  full_name='basic-service-invocation-py.greeter.v1.HelloResponse',
+  full_name='basic.greeter.v1.HelloResponse',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='msg', full_name='basic-service-invocation-py.greeter.v1.HelloResponse.msg', index=0,
+      name='msg', full_name='basic.greeter.v1.HelloResponse.msg', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -86,8 +86,8 @@ _HELLORESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=115,
-  serialized_end=148,
+  serialized_start=112,
+  serialized_end=145,
 )
 
 DESCRIPTOR.message_types_by_name['HelloRequest'] = _HELLOREQUEST
@@ -97,14 +97,14 @@ _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 HelloRequest = _reflection.GeneratedProtocolMessageType('HelloRequest', (_message.Message,), {
   'DESCRIPTOR' : _HELLOREQUEST,
   '__module__' : 'greeter.v1.greeter_pb2'
-  # @@protoc_insertion_point(class_scope:basic-service-invocation-py.greeter.v1.HelloRequest)
+  # @@protoc_insertion_point(class_scope:basic.greeter.v1.HelloRequest)
   })
 _sym_db.RegisterMessage(HelloRequest)
 
 HelloResponse = _reflection.GeneratedProtocolMessageType('HelloResponse', (_message.Message,), {
   'DESCRIPTOR' : _HELLORESPONSE,
   '__module__' : 'greeter.v1.greeter_pb2'
-  # @@protoc_insertion_point(class_scope:basic-service-invocation-py.greeter.v1.HelloResponse)
+  # @@protoc_insertion_point(class_scope:basic.greeter.v1.HelloResponse)
   })
 _sym_db.RegisterMessage(HelloResponse)
 
@@ -113,17 +113,17 @@ DESCRIPTOR._options = None
 
 _GREETER = _descriptor.ServiceDescriptor(
   name='Greeter',
-  full_name='basic-service-invocation-py.greeter.v1.Greeter',
+  full_name='basic.greeter.v1.Greeter',
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=150,
-  serialized_end=269,
+  serialized_start=147,
+  serialized_end=260,
   methods=[
   _descriptor.MethodDescriptor(
     name='Hello',
-    full_name='basic-service-invocation-py.greeter.v1.Greeter.Hello',
+    full_name='basic.greeter.v1.Greeter.Hello',
     index=0,
     containing_service=None,
     input_type=_HELLOREQUEST,

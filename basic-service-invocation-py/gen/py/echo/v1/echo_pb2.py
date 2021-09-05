@@ -16,11 +16,11 @@ from google.api import annotations_pb2 as google_dot_api_dot_annotations__pb2
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='echo/v1/echo.proto',
-  package='basic-service-invocation-py.echo.v1',
+  package='basic.echo.v1',
   syntax='proto3',
-  serialized_options=b'Z+github.com/kzmake/examples/basic-service-invocation-py/api/echo/v1;echo',
+  serialized_options=b'ZGgithub.com/kzmake/examples/basic-service-invocation-py/api/echo/v1;echo',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x12\x65\x63ho/v1/echo.proto\x12\x10basic-service-invocation-py.echo.v1\x1a\x1cgoogle/api/annotations.proto\"\x1f\n\x0b\x45\x63hoRequest\x12\x10\n\x03msg\x18\x01 \x01(\tR\x03msg\" \n\x0c\x45\x63hoResponse\x12\x10\n\x03msg\x18\x01 \x01(\tR\x03msg2g\n\x04\x45\x63ho\x12_\n\x04\x45\x63ho\x12\x1d.basic-service-invocation-py.echo.v1.EchoRequest\x1a\x1e.basic-service-invocation-py.echo.v1.EchoResponse\"\x18\x82\xd3\xe4\x93\x02\x12\"\r/echo/v1/echo:\x01*B-Z+github.com/kzmake/examples/basic-service-invocation-py/api/echo/v1;echob\x06proto3'
+  serialized_pb=b'\n\x12\x65\x63ho/v1/echo.proto\x12\rbasic.echo.v1\x1a\x1cgoogle/api/annotations.proto\"\x1f\n\x0b\x45\x63hoRequest\x12\x10\n\x03msg\x18\x01 \x01(\tR\x03msg\" \n\x0c\x45\x63hoResponse\x12\x10\n\x03msg\x18\x01 \x01(\tR\x03msg2a\n\x04\x45\x63ho\x12Y\n\x04\x45\x63ho\x12\x1a.basic.echo.v1.EchoRequest\x1a\x1b.basic.echo.v1.EchoResponse\"\x18\x82\xd3\xe4\x93\x02\x12\"\r/echo/v1/echo:\x01*BIZGgithub.com/kzmake/examples/basic-service-invocation-py/api/echo/v1;echob\x06proto3'
   ,
   dependencies=[google_dot_api_dot_annotations__pb2.DESCRIPTOR,])
 
@@ -29,14 +29,14 @@ DESCRIPTOR = _descriptor.FileDescriptor(
 
 _ECHOREQUEST = _descriptor.Descriptor(
   name='EchoRequest',
-  full_name='basic-service-invocation-py.echo.v1.EchoRequest',
+  full_name='basic.echo.v1.EchoRequest',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='msg', full_name='basic-service-invocation-py.echo.v1.EchoRequest.msg', index=0,
+      name='msg', full_name='basic.echo.v1.EchoRequest.msg', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -54,21 +54,21 @@ _ECHOREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=70,
-  serialized_end=101,
+  serialized_start=67,
+  serialized_end=98,
 )
 
 
 _ECHORESPONSE = _descriptor.Descriptor(
   name='EchoResponse',
-  full_name='basic-service-invocation-py.echo.v1.EchoResponse',
+  full_name='basic.echo.v1.EchoResponse',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='msg', full_name='basic-service-invocation-py.echo.v1.EchoResponse.msg', index=0,
+      name='msg', full_name='basic.echo.v1.EchoResponse.msg', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -86,8 +86,8 @@ _ECHORESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=103,
-  serialized_end=135,
+  serialized_start=100,
+  serialized_end=132,
 )
 
 DESCRIPTOR.message_types_by_name['EchoRequest'] = _ECHOREQUEST
@@ -97,14 +97,14 @@ _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 EchoRequest = _reflection.GeneratedProtocolMessageType('EchoRequest', (_message.Message,), {
   'DESCRIPTOR' : _ECHOREQUEST,
   '__module__' : 'echo.v1.echo_pb2'
-  # @@protoc_insertion_point(class_scope:basic-service-invocation-py.echo.v1.EchoRequest)
+  # @@protoc_insertion_point(class_scope:basic.echo.v1.EchoRequest)
   })
 _sym_db.RegisterMessage(EchoRequest)
 
 EchoResponse = _reflection.GeneratedProtocolMessageType('EchoResponse', (_message.Message,), {
   'DESCRIPTOR' : _ECHORESPONSE,
   '__module__' : 'echo.v1.echo_pb2'
-  # @@protoc_insertion_point(class_scope:basic-service-invocation-py.echo.v1.EchoResponse)
+  # @@protoc_insertion_point(class_scope:basic.echo.v1.EchoResponse)
   })
 _sym_db.RegisterMessage(EchoResponse)
 
@@ -113,17 +113,17 @@ DESCRIPTOR._options = None
 
 _ECHO = _descriptor.ServiceDescriptor(
   name='Echo',
-  full_name='basic-service-invocation-py.echo.v1.Echo',
+  full_name='basic.echo.v1.Echo',
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=137,
-  serialized_end=240,
+  serialized_start=134,
+  serialized_end=231,
   methods=[
   _descriptor.MethodDescriptor(
     name='Echo',
-    full_name='basic-service-invocation-py.echo.v1.Echo.Echo',
+    full_name='basic.echo.v1.Echo.Echo',
     index=0,
     containing_service=None,
     input_type=_ECHOREQUEST,

@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package basic.blog.v1;
+option go_package = "github.com/kzmake/examples/basic-service-invocation/api/blog/v1;blog";
+
+import "google/api/annotations.proto";
+
+service BlogService {
+  rpc Create(CreateRequest) returns (CreateResponse);
+}
+
+message CreateRequest {
+  string username = 1;
+}
+
+message CreateResponse {
+  Blog blog = 1;
+}
+
+message Blog {
+  string url = 1;
+}

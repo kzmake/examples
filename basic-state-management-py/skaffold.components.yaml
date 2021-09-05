@@ -1,0 +1,24 @@
+---
+apiVersion: skaffold/v2beta19
+kind: Config
+metadata:
+requires:
+  - configs: ["state"]
+---
+apiVersion: skaffold/v2beta19
+kind: Config
+metadata:
+  name: state
+deploy:
+  helm:
+    releases:
+      - name: redis-state
+        repo: https://charts.bitnami.com/bitnami
+        remoteChart: redis
+        setValues:
+          master.persistence.enabled: false
+          replica.persistence.enabled: false
+          auth.password: myredis
+          architecture: standalone
+          sentinel.enabled: false
+        wait: true

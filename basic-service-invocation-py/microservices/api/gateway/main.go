@@ -20,8 +20,6 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/metadata"
 
-	echopb "github.com/kzmake/examples/basic-service-invocation-py/gen/go/basic/echo/v1"
-	greeterpb "github.com/kzmake/examples/basic-service-invocation-py/gen/go/basic/greeter/v1"
 	userpb "github.com/kzmake/examples/basic-service-invocation-py/gen/go/basic/user/v1"
 )
 
@@ -65,26 +63,6 @@ func newGatewayServer(ctx context.Context) (*http.Server, error) {
 		ginlogger.WithSkipPath([]string{"/healthz"}),
 	))
 	r.Use(gin.Recovery())
-
-	greeterMux := runtime.NewServeMux(
-		runtime.WithMetadata(func(_ context.Context, _ *http.Request) metadata.MD {
-			return metadata.Pairs("dapr-app-id", "svc-greeter")
-		}),
-	)
-	if err := greeterpb.RegisterGreeterHandlerFromEndpoint(ctx, greeterMux, env.Dapr.Address, []grpc.DialOption{grpc.WithInsecure()}); err != nil {
-		return nil, xerrors.Errorf("Failed to register handler: %w", err)
-	}
-	r.Group("/greeter/v1").Any("/*any", gin.WrapH(greeterMux))
-
-	echoMux := runtime.NewServeMux(
-		runtime.WithMetadata(func(_ context.Context, _ *http.Request) metadata.MD {
-			return metadata.Pairs("dapr-app-id", "svc-echo")
-		}),
-	)
-	if err := echopb.RegisterEchoHandlerFromEndpoint(ctx, echoMux, env.Dapr.Address, []grpc.DialOption{grpc.WithInsecure()}); err != nil {
-		return nil, xerrors.Errorf("Failed to register handler: %w", err)
-	}
-	r.Group("/echo/v1").Any("/*any", gin.WrapH(echoMux))
 
 	userMux := runtime.NewServeMux(
 		runtime.WithMetadata(func(_ context.Context, _ *http.Request) metadata.MD {

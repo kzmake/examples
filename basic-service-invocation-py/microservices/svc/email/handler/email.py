@@ -1,7 +1,6 @@
-from grpclib.server import Stream
-
 from basic.email.v1.email_grpc import EmailServiceBase
 from basic.email.v1.email_pb2 import CreateRequest, CreateResponse, Email
+from grpclib.server import Stream
 
 
 class EmailService(EmailServiceBase):

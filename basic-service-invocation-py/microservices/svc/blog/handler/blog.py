@@ -1,7 +1,6 @@
-from grpclib.server import Stream
-
 from basic.blog.v1.blog_grpc import BlogServiceBase
-from basic.blog.v1.blog_pb2 import CreateRequest, CreateResponse, Blog
+from basic.blog.v1.blog_pb2 import Blog, CreateRequest, CreateResponse
+from grpclib.server import Stream
 
 
 class BlogService(BlogServiceBase):

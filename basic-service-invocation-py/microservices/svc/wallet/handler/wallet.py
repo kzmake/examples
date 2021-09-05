@@ -1,8 +1,7 @@
 import ulid
-from grpclib.server import Stream
-
 from basic.wallet.v1.wallet_grpc import WalletServiceBase
 from basic.wallet.v1.wallet_pb2 import CreateRequest, CreateResponse, Wallet
+from grpclib.server import Stream
 
 
 class WalletService(WalletServiceBase):

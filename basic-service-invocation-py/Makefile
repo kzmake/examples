@@ -64,8 +64,10 @@ destroy-production:
 http:
 	curl -i localhost:58080/greeter/v1/hello -H "Content-Type: application/json" -d '{"name": "alice"}'
 	curl -i localhost:58080/echo/v1/echo -H "Content-Type: application/json" -d '{"msg": "hoge"}'
+	curl -i localhost:58080/user/v1/users -H "Content-Type: application/json" -d '{"name": "alice"}'
 
 .PHONY: grpc
 grpc:
-	grpcurl -protoset <(buf build -o -) -plaintext -d '{"name": "alice"}' localhost:55050 basic-service-invocation-py.greeter.v1.Greeter/Hello || true
-	grpcurl -protoset <(buf build -o -) -plaintext -d '{"msg": "hoge"}' localhost:55051 basic-service-invocation-py.echo.v1.Echo/Echo || true
+	grpcurl -protoset <(buf build -o -) -plaintext -d '{"name": "alice"}' localhost:55050 basic.v1.Greeter/Hello || true
+	grpcurl -protoset <(buf build -o -) -plaintext -d '{"msg": "hoge"}' localhost:55051 basic.echo.v1.Echo/Echo || true
+	grpcurl -protoset <(buf build -o -) -plaintext -d '{"name": "hoge"}' localhost:5050 basic.user.v1.UserService/Create || true

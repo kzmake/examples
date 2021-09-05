@@ -3,7 +3,7 @@ package handler
 import (
 	"context"
 
-	pb "github.com/kzmake/examples/basic-service-invocation-py/gen/go/greeter/v1"
+	pb "github.com/kzmake/examples/basic-service-invocation-py/gen/go/basic/greeter/v1"
 )
 
 type greeter struct {

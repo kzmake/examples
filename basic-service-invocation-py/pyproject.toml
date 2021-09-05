@@ -11,6 +11,7 @@ googleapis-common-protos = "^1.53.0"
 grpcio = "^1.39.0"
 protobuf = "^3.17.3"
 grpclib = "^0.4.2"
+ulid-py = "^1.1.0"
 
 [tool.poetry.dev-dependencies]
 black = "^21.8b0"

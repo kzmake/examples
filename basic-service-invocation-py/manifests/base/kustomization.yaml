@@ -4,3 +4,7 @@ resources:
   - api-gateway.yaml
   - svc-greeter.yaml
   - svc-echo.yaml
+  - svc-user.yaml
+  - svc-wallet.yaml
+  - svc-blog.yaml
+  - svc-email.yaml

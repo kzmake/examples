@@ -18,7 +18,7 @@ import (
 	"golang.org/x/xerrors"
 	"google.golang.org/grpc"
 
-	pb "github.com/kzmake/examples/basic-service-invocation-py/gen/go/greeter/v1"
+	pb "github.com/kzmake/examples/basic-service-invocation-py/gen/go/basic/greeter/v1"
 
 	"github.com/kzmake/examples/basic-service-invocation-py/microservices/svc/greeter/handler"
 )

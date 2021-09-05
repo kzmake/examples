@@ -17,6 +17,14 @@ build:
       docker: { dockerfile: Dockerfile.golang, network: host, buildArgs: { SERVICE_NAME: svc/greeter } }
     - image: ghcr.io/kzmake/examples/basic-service-invocation-py/svc-echo
       docker: { dockerfile: Dockerfile.python, network: host, buildArgs: { SERVICE_NAME: svc/echo } }
+    - image: ghcr.io/kzmake/examples/basic-service-invocation-py/svc-user
+      docker: { dockerfile: Dockerfile.python, network: host, buildArgs: { SERVICE_NAME: svc/user } }
+    - image: ghcr.io/kzmake/examples/basic-service-invocation-py/svc-blog
+      docker: { dockerfile: Dockerfile.python, network: host, buildArgs: { SERVICE_NAME: svc/blog } }
+    - image: ghcr.io/kzmake/examples/basic-service-invocation-py/svc-email
+      docker: { dockerfile: Dockerfile.python, network: host, buildArgs: { SERVICE_NAME: svc/email } }
+    - image: ghcr.io/kzmake/examples/basic-service-invocation-py/svc-wallet
+      docker: { dockerfile: Dockerfile.python, network: host, buildArgs: { SERVICE_NAME: svc/wallet } }
 deploy:
   kustomize:
     paths:
@@ -37,6 +45,11 @@ portForward:
     namespace: default
     port: 5050
     localPort: 55051
+  - resourceType: service
+    resourceName: svc-user
+    namespace: default
+    port: 5050
+    localPort: 55052
 profiles:
   - name: localhost
   - name: production

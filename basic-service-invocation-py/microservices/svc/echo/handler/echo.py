@@ -1,5 +1,5 @@
-from echo.v1.echo_grpc import EchoBase
-from echo.v1.echo_pb2 import EchoRequest, EchoResponse
+from basic.echo.v1.echo_grpc import EchoBase
+from basic.echo.v1.echo_pb2 import EchoRequest, EchoResponse
 from grpclib.server import Stream
 
 

@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package basic.user.v1;
+option go_package = "github.com/kzmake/examples/basic-publish-and-subscribe-py/api/user/v1;user";
+
+import "google/protobuf/timestamp.proto";
+
+message CreatedEvent {
+  CreatedEventUser user = 1;
+}
+
+message CreatedEventUser {
+  string id = 1;
+  string name = 2;
+  google.protobuf.Timestamp created_at = 100;
+}

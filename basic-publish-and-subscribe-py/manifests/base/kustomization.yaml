@@ -1,0 +1,8 @@
+---
+resources:
+  - common.yaml
+  - api-gateway.yaml
+  - svc-user.yaml
+  - wrk-wallet.yaml
+  - wrk-blog.yaml
+  - wrk-email.yaml

@@ -1,48 +1,80 @@
-import basic.blog.v1.blog_pb2 as blogpb
-import basic.email.v1.email_pb2 as emailpb
-import basic.wallet.v1.wallet_pb2 as walletpb
+import basic.user.v1.user_pb2 as userpb
 import ulid
-from basic.blog.v1.blog_grpc import BlogServiceStub
-from basic.email.v1.email_grpc import EmailServiceStub
 from basic.user.v1.user_grpc import UserServiceBase
-from basic.user.v1.user_pb2 import CreateRequest, CreateResponse, User
-from basic.wallet.v1.wallet_grpc import WalletServiceStub
-from grpclib.client import Channel
 from grpclib.server import Stream
+
+from .domain import User, UserID, UserName
+from .repository import UserRepository
+
+userRepository = UserRepository()
 
 
 class UserService(UserServiceBase):
-    async def Create(self, stream: Stream[CreateRequest, CreateResponse]) -> None:
+    async def Create(
+        self, stream: Stream[userpb.CreateRequest, userpb.CreateResponse]
+    ) -> None:
         req = await stream.recv_message()
         assert req is not None
 
-        user = User(id=str(ulid.new()), name=req.name)
+        user = User(user_id=UserID(str(ulid.new())), name=UserName(req.name))
+        userRepository.add(user)
 
-        async with Channel(host="localhost", port=50001) as channel:
-            blog = BlogServiceStub(channel)
-            blogres = await blog.Create(
-                blogpb.CreateRequest(username=req.name),
-                metadata={"dapr-app-id": "svc-blog"},
-            )
-            user.blog_url = blogres.blog.url
+        u = userpb.User(id=user.user_id.value, name=user.name.value)
+        res = userpb.CreateResponse(user=u)
+        await stream.send_message(res)
 
-        async with Channel(host="localhost", port=50001) as channel:
-            email = EmailServiceStub(channel)
-            email_res = await email.Create(
-                emailpb.CreateRequest(username=req.name),
-                metadata={"dapr-app-id": "svc-email"},
-            )
-            user.email_address = email_res.email.address
+    async def List(
+        self, stream: Stream[userpb.ListRequest, userpb.ListResponse]
+    ) -> None:
+        req = await stream.recv_message()
+        assert req is not None
 
-        async with Channel(host="localhost", port=50001) as channel:
-            wallet = WalletServiceStub(channel)
-            wallet_res = await wallet.Create(
-                walletpb.CreateRequest(),
-                metadata={"dapr-app-id": "svc-wallet"},
-            )
-            user.wallet_id = wallet_res.wallet.id
+        users = userRepository.list()
 
-        # do something
+        us = [
+            userpb.User(id=user.user_id.value, name=user.name.value) for user in users
+        ]
+        res = userpb.ListResponse(users=us)
+        await stream.send_message(res)
 
-        res = CreateResponse(user=user)
+    async def Get(self, stream: Stream[userpb.GetRequest, userpb.GetResponse]) -> None:
+        req = await stream.recv_message()
+        assert req is not None
+
+        user_id = UserID(req.user_id)
+        user = userRepository.get(user_id)
+
+        u = userpb.User(id=user.user_id.value, name=user.name.value)
+        res = userpb.GetResponse(user=u)
+        await stream.send_message(res)
+
+    async def Rename(
+        self, stream: Stream[userpb.RenameRequest, userpb.RenameResponse]
+    ) -> None:
+        req = await stream.recv_message()
+        assert req is not None
+
+        user_id = UserID(req.user_id)
+        user = userRepository.get(user_id)
+
+        user.rename(UserName(req.name))
+        userRepository.update(user)
+
+        user = userRepository.get(user_id)
+
+        u = userpb.User(id=user.user_id.value, name=user.name.value)
+        res = userpb.RenameResponse(user=u)
+        await stream.send_message(res)
+
+    async def Delete(
+        self, stream: Stream[userpb.DeleteRequest, userpb.DeleteResponse]
+    ) -> None:
+        req = await stream.recv_message()
+        assert req is not None
+
+        user_id = UserID(req.user_id)
+        user = userRepository.get(user_id)
+        userRepository.remove(user)
+
+        res = userpb.DeleteResponse()
         await stream.send_message(res)

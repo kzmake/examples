@@ -6,7 +6,7 @@ from grpclib.server import Stream
 from .domain import User, UserID, UserName
 from .repository import UserRepository
 
-userRepository = UserRepository()
+user_repository = UserRepository()
 
 
 class UserService(UserServiceBase):
@@ -17,7 +17,7 @@ class UserService(UserServiceBase):
         assert req is not None
 
         user = User(user_id=UserID(str(ulid.new())), name=UserName(req.name))
-        userRepository.add(user)
+        user_repository.add(user)
 
         u = userpb.User(id=user.user_id.value, name=user.name.value)
         res = userpb.CreateResponse(user=u)
@@ -29,7 +29,7 @@ class UserService(UserServiceBase):
         req = await stream.recv_message()
         assert req is not None
 
-        users = userRepository.list()
+        users = user_repository.list()
 
         us = [
             userpb.User(id=user.user_id.value, name=user.name.value) for user in users
@@ -42,7 +42,7 @@ class UserService(UserServiceBase):
         assert req is not None
 
         user_id = UserID(req.user_id)
-        user = userRepository.get(user_id)
+        user = user_repository.get(user_id)
 
         u = userpb.User(id=user.user_id.value, name=user.name.value)
         res = userpb.GetResponse(user=u)
@@ -55,12 +55,12 @@ class UserService(UserServiceBase):
         assert req is not None
 
         user_id = UserID(req.user_id)
-        user = userRepository.get(user_id)
+        user = user_repository.get(user_id)
 
         user.rename(UserName(req.name))
-        userRepository.update(user)
+        user_repository.update(user)
 
-        user = userRepository.get(user_id)
+        user = user_repository.get(user_id)
 
         u = userpb.User(id=user.user_id.value, name=user.name.value)
         res = userpb.RenameResponse(user=u)
@@ -73,8 +73,8 @@ class UserService(UserServiceBase):
         assert req is not None
 
         user_id = UserID(req.user_id)
-        user = userRepository.get(user_id)
-        userRepository.remove(user)
+        user = user_repository.get(user_id)
+        user_repository.remove(user)
 
         res = userpb.DeleteResponse()
         await stream.send_message(res)

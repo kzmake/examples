@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package payment.history.v1;
+option go_package = "github.com/kzmake/examples/dapr-payment/gen/go/payment/history/v1;history";
+
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+
+service HistoryService {
+  rpc RegisterHistory(RegisterHistoryRequest) returns (History) {
+    option (google.api.http) = {
+      post: "/v1/historys"
+      body: "*"
+    };
+  }
+  rpc GetHistory(GetHistoryRequest) returns (History) {
+    option (google.api.http) = {
+      get: "/v1/histories/{id}"
+    };
+  }
+  rpc ListHistories(google.protobuf.Empty) returns (History) {
+    option (google.api.http) = {
+      get: "/v1/histories"
+    };
+  }
+}
+
+message RegisterHistoryRequest {
+  string from = 1;
+  string to = 2;
+  int64 money = 3;
+  string kind = 4;
+}
+
+message GetHistoryRequest {
+  string id = 1;
+}
+
+message History {
+  string id = 1;
+  string from = 2;
+  string to = 3;
+  int64 money = 4;
+}
+

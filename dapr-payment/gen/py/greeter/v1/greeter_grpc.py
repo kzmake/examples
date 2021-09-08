@@ -21,7 +21,7 @@ class GreeterBase(abc.ABC):
 
     def __mapping__(self) -> typing.Dict[str, grpclib.const.Handler]:
         return {
-            '/dapr-payment.greeter.v1.Greeter/Hello': grpclib.const.Handler(
+            '/daprpayment.greeter.v1.Greeter/Hello': grpclib.const.Handler(
                 self.Hello,
                 grpclib.const.Cardinality.UNARY_UNARY,
                 greeter.v1.greeter_pb2.HelloRequest,
@@ -35,7 +35,7 @@ class GreeterStub:
     def __init__(self, channel: grpclib.client.Channel) -> None:
         self.Hello = grpclib.client.UnaryUnaryMethod(
             channel,
-            '/dapr-payment.greeter.v1.Greeter/Hello',
+            '/daprpayment.greeter.v1.Greeter/Hello',
             greeter.v1.greeter_pb2.HelloRequest,
             greeter.v1.greeter_pb2.HelloResponse,
         )

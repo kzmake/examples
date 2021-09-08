@@ -1,0 +1,81 @@
+syntax = "proto3";
+
+package payment.wallet.v1;
+option go_package = "github.com/kzmake/examples/dapr-payment/gen/go/payment/wallet/v1;wallet";
+
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+
+service WalletService {
+  rpc CreateWallet(google.protobuf.Empty) returns (Wallet) {
+    option (google.api.http) = {
+      post: "/v1/wallets"
+      body: "*"
+    };
+  }
+  rpc GetWallet(GetWalletRequest) returns (Wallet) {
+    option (google.api.http) = {
+      get: "/v1/wallets/{id}"
+    };
+  }
+  rpc ListWallets(google.protobuf.Empty) returns (Wallet) {
+    option (google.api.http) = {
+      get: "/v1/wallets"
+    };
+  }
+  rpc DeleteWallet(DeleteWalletRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/v1/wallets/{id}"
+    };
+  }
+  rpc DepositMoney(DepositMoneyRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/v1/wallets/{id}/deposit"
+      body: "*"
+    };
+  }
+  rpc TransferMoney(TransferMoneyRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/v1/wallets/{id}/transfer"
+      body: "*"
+    };
+  }
+  rpc PayMoney(PayMoneyRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/v1/wallets/{id}/pay"
+      body: "*"
+    };
+  }
+}
+
+message GetWalletRequest {
+  string id = 1;
+}
+
+message ListWalletsResponse {
+  repeated Wallet wallets = 1;
+}
+
+message DeleteWalletRequest {
+  string id = 1;
+}
+
+message PayMoneyRequest {
+  string id = 1;
+  int64 money = 2;
+}
+
+message DepositMoneyRequest {
+  string id = 1;
+  int64 money = 2;
+}
+
+message TransferMoneyRequest {
+  string id = 1;
+  int64 money = 2;
+}
+
+message Wallet {
+  string id = 1;
+  int64 balance = 3;
+}

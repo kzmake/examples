@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+package payment.coupon.v1;
+option go_package = "github.com/kzmake/examples/dapr-payment/gen/go/payment/coupon/v1;coupon";
+
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+
+service CouponService {
+  rpc GetCoupon(GetCouponRequest) returns (Coupon) {
+    option (google.api.http) = {
+      get: "/v1/coupons/{id}"
+    };
+  }
+  rpc ListCoupons(google.protobuf.Empty) returns (Coupon) {
+    option (google.api.http) = {
+      get: "/v1/coupons"
+    };
+  }
+  rpc UseCoupon(UseCouponRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/v1/coupons/{id}/use"
+    };
+  }
+  rpc CancellCoupon(CancellCouponRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/v1/coupons/{id}/cancell"
+    };
+  }
+}
+
+message GetCouponRequest {
+  string id = 1;
+}
+
+message ListCouponsResponse {
+  repeated Coupon coupons = 1;
+}
+
+message UseCouponRequest {
+  string id = 1;
+}
+
+message CancellCouponRequest {
+  string id = 1;
+}
+
+message Coupon {
+  string id = 1;
+  string summary = 2;
+  int64 discount = 3;
+}
+
